@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Simulador AFD Paso a Paso</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    background:#f4f4f4;
+}
+
+input{
+    padding:10px;
+    width:300px;
+    margin:10px;
+}
+
+button{
+    padding:8px 15px;
+    margin:5px;
+    cursor:pointer;
+}
+
+#automata{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.estado{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:3px solid black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    background:white;
+}
+
+.activo{
+    background:yellow;
+}
+
+.aceptacion{
+    border:4px double green;
+}
+
+.error{
+    background:#ffb3b3;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Simulador AFD Paso a Paso</h2>
+
+<input type="text" id="cadena" placeholder="Ingrese cadena">
+<br>
+<button onclick="iniciar()">Iniciar</button>
+<button onclick="siguiente()">Siguiente símbolo</button>
+
+<h3 id="info"></h3>
+
+<div id="automata">
+    <div id="q0" class="estado">q0</div>
+    <div id="q1" class="estado">q1</div>
+    <div id="q2" class="estado">q2</div>
+    <div id="q3" class="estado">q3</div>
+    <div id="q4" class="estado aceptacion">q4</div>
+    <div id="qE" class="estado">qE</div>
+</div>
+
+<script>
+
+// CONFIGURA TUS DATOS
+const nombre = "emilianomontalvo";
+const matricula = "1234567";
+const iniciales = "em";
+
+const letras = [...new Set(nombre.split(""))];
+const digitos = [...new Set(matricula.split(""))];
+const alfabeto = [...letras, ...digitos, "."];
+
+let cadena = "";
+let posicion = 0;
+let estadoActual = "q0";
+
+function resetEstados(){
+    document.querySelectorAll(".estado").forEach(e=>{
+        e.classList.remove("activo","error");
+    });
+}
+
+function activarEstado(id){
+    resetEstados();
+    document.getElementById(id).classList.add("activo");
+}
+
+function iniciar(){
+    cadena = document.getElementById("cadena").value;
+    posicion = 0;
+    estadoActual = "q0";
+    activarEstado("q0");
+    document.getElementById("info").textContent = "Estado inicial q0";
+}
+
+function siguiente(){
+
+    if(posicion >= cadena.length){
+        if(estadoActual === "q4"){
+            document.getElementById("info").textContent = "Cadena ACEPTADA";
+        }else{
+            document.getElementById("info").textContent = "Cadena RECHAZADA";
+        }
+        return;
+    }
+
+    let simbolo = cadena[posicion];
+
+    switch(estadoActual){
+
+        case "q0":
+            if(digitos.includes(simbolo)){
+                estadoActual = "q1";
+            }else{
+                estadoActual = "qE";
+            }
+        break;
+
+        case "q1":
+            if(!alfabeto.includes(simbolo) || cadena.includes("..")){
+                estadoActual = "qE";
+            }
+            else if(cadena.substring(posicion).startsWith(iniciales)){
+                estadoActual = "q2";
+            }
+            else if(cadena.substring(posicion).startsWith("." + matricula)){
+                estadoActual = "q4";
+                posicion = cadena.length-1;
+            }
+            else{
+                estadoActual = "q1";
+            }
+        break;
+
+        case "q2":
+            if(cadena.substring(posicion).startsWith("." + matricula)){
+                estadoActual = "q4";
+                posicion = cadena.length-1;
+            }
+            else{
+                estadoActual = "q1";
+            }
+        break;
+
+        case "qE":
+            estadoActual = "qE";
+        break;
+    }
+
+    activarEstado(estadoActual);
+
+    document.getElementById("info").textContent =
+        "Símbolo leído: " + simbolo + " → Estado actual: " + estadoActual;
+
+    posicion++;
+}
+
+</script>
+
+</body>
+</html>

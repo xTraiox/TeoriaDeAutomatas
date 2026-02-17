@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validador Lenguaje Regular</title>
+
+<style>
+:root{
+    --primary:#4f46e5;
+    --success:#16a34a;
+    --error:#dc2626;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#1f2937;
+}
+
+@media (prefers-color-scheme: dark){
+    :root{
+        --bg:#0f172a;
+        --card:#1e293b;
+        --text:#f1f5f9;
+    }
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+}
+
+.app{
+    background:var(--card);
+    color:var(--text);
+    width:100%;
+    max-width:800px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    backdrop-filter:blur(10px);
+    animation:fadeIn 0.6s ease;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.alfabeto{
+    font-size:14px;
+    text-align:center;
+    margin-bottom:20px;
+    word-wrap:break-word;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:none;
+    background:#eef2ff;
+    font-size:16px;
+    margin-bottom:15px;
+    outline:none;
+}
+
+.botones{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:var(--primary);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.resultado{
+    margin-top:15px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.valido{ color:var(--success); }
+.invalido{ color:var(--error); }
+
+.historial{
+    margin-top:25px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px;
+}
+
+th,td{
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#09278a;
+}
+
+tr:nth-child(even){
+    background:#2f5ebd;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+    <h1>Validador de Lenguaje Regular</h1>
+
+    <div class="alfabeto">
+        <strong>Alfabeto permitido:</strong>
+        <div id="alfabeto"></div>
+    </div>
+
+    <input type="text" id="cadena" placeholder="Escribe tu cadena aquí">
+
+    <div class="botones">
+        <button onclick="validar()">Validar</button>
+        <button onclick="limpiar()">Limpiar</button>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <div class="historial">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cadena</th>
+                    <th>Resultado</th>
+                    <th>Regla</th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+// CONFIGURA TUS DATOS
+const nombre = "emilianomontalvo";
+const matricula = "1234567";
+const iniciales = "em";
+
+const letras = [...new Set(nombre.split(""))];
+const digitos = [...new Set(matricula.split(""))];
+const alfabeto = [...letras, ...digitos, "."];
+
+document.getElementById("alfabeto").textContent =
+"{ " + alfabeto.join(", ") + " }";
+
+let contador = 0;
+
+function validar(){
+
+    const cadena = document.getElementById("cadena").value;
+    const resultado = document.getElementById("resultado");
+
+    let esValida = true;
+    let error = "-";
+
+    if(!cadena || !digitos.includes(cadena[0])){
+        esValida=false;
+        error="No inicia con dígito válido";
+    }
+    else if(cadena.includes("..")){
+        esValida=false;
+        error="Tiene puntos consecutivos";
+    }
+    else{
+        for(let c of cadena){
+            if(!alfabeto.includes(c)){
+                esValida=false;
+                error="Carácter fuera del alfabeto";
+                break;
+            }
+        }
+    }
+
+    if(esValida && !cadena.includes(iniciales)){
+        esValida=false;
+        error="No contiene iniciales";
+    }
+
+    if(esValida && !cadena.endsWith("." + matricula)){
+        esValida=false;
+        error="No termina con ." + matricula;
+    }
+
+    resultado.textContent = esValida ? "✅ Cadena Válida" : "❌ Cadena No Válida";
+    resultado.className = esValida ? "resultado valido" : "resultado invalido";
+
+    contador++;
+
+    document.getElementById("tabla").innerHTML += `
+        <tr>
+            <td>${contador}</td>
+            <td>${cadena}</td>
+            <td style="color:${esValida ? '#16a34a' : '#dc2626'}">
+                ${esValida ? "Válida" : "No válida"}
+            </td>
+            <td>${esValida ? "-" : error}</td>
+        </tr>
+    `;
+}
+
+function limpiar(){
+    document.getElementById("cadena").value="";
+    document.getElementById("resultado").textContent="";
+}
+
+</script>
+
+</body>
+</html>
