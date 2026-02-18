@@ -30,7 +30,7 @@ body{
 }
 
 .app{
-    background: rgba(27,38,59,0.65); /* var(--prussian) con transparencia */
+    background: rgba(27,38,59,0.65); 
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
@@ -165,17 +165,84 @@ td{
     color: var(--alabaster);
 }
 
-/* Filas alternas suaves */
-tr:nth-child(even){
-    background: rgba(119,141,169,0.08);
+
+/* Animación al agregar fila */
+@keyframes filaEntrada{
+    from{
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Hover elegante */
-tr:hover{
-    background: rgba(119,141,169,0.18);
-    transition: 0.3s;
+.nueva-fila{
+    animation: filaEntrada 0.4s ease forwards;
 }
 
+/* Animación válida */
+@keyframes filaValida{
+    0%{
+        opacity: 0;
+        transform: translateY(15px);
+        box-shadow: 0 0 0 rgba(46,125,50,0);
+    }
+    50%{
+        box-shadow: 0 0 20px rgba(46,125,50,0.6);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 0 0 rgba(46,125,50,0);
+    }
+}
+
+/* Animación inválida */
+@keyframes filaInvalida{
+    0%{
+        opacity: 0;
+        transform: translateY(15px);
+        box-shadow: 0 0 0 rgba(198,40,40,0);
+    }
+    50%{
+        box-shadow: 0 0 20px rgba(198,40,40,0.6);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 0 0 rgba(198,40,40,0);
+    }
+}
+
+.fila-valida{
+    animation: filaValida 0.6s ease forwards;
+}
+
+.fila-invalida{
+    animation: filaInvalida 0.6s ease forwards;
+}
+
+/* Fondo permanente válida */
+.fila-valida{
+    background: rgba(46,125,50,0.15);
+    animation: filaValida 0.6s ease forwards;
+}
+
+/* Fondo permanente inválida */
+.fila-invalida{
+    background: rgba(198,40,40,0.15);
+    animation: filaInvalida 0.6s ease forwards;
+}
+
+.fila-valida:hover{
+    background: rgba(46,125,50,0.25);
+}
+
+.fila-invalida:hover{
+    background: rgba(198,40,40,0.25);
+}
 
 @keyframes fadeIn{
     from{opacity:0; transform:translateY(20px);}
@@ -198,22 +265,79 @@ tr:hover{
 
     z-index: 2000;
 }
-.modal-content {
+
+.modal-content{
     background: rgba(27,38,59,0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
-    border: 1px solid rgba(119,141,169,0.3);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-
-    padding: 30px;
+    border: 1px solid rgba(119,141,169,0.25);
     border-radius: 20px;
 
     width: 90%;
-    max-width: 500px;
+    max-width: 520px;
+
+    padding: 0;
+    overflow: hidden;
 
     animation: modalFade 0.3s ease;
 }
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 25px;
+    background: rgba(65,90,119,0.4);
+    border-bottom: 1px solid rgba(119,141,169,0.2);
+}
+
+.modal-header h2{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--alabaster);
+}
+
+.close{
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--lavender);
+    transition: 0.3s;
+}
+
+.close:hover{
+    color: var(--alabaster);
+    transform: scale(1.2);
+}
+
+.modal-body{
+    padding: 25px;
+}
+
+.modal-body strong{
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+
+.modal-body ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-body li{
+    background: rgba(119,141,169,0.1);
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 
 
 
@@ -242,7 +366,6 @@ tr:hover{
     color:var(--alabaster);
 }
 
-/* Botón flotante adaptado al icono */
 .btn-modal{
     position: fixed;
     top: 20px;
@@ -276,14 +399,13 @@ tr:hover{
     font-size: 26px;
 }
 
-/* Hover elegante */
 .btn-modal:hover{
     background: var(--lavender);
     color: var(--ink);
     transform: scale(1.1);
 }
 
-/* Contenedor */
+
 .input-group{
     position: relative;
     margin-bottom: 25px;
@@ -308,7 +430,6 @@ tr:hover{
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-/* Placeholder más suave */
 .input-group input::placeholder{
     color: rgba(224,225,221,0.6);
 }
@@ -324,13 +445,11 @@ tr:hover{
     transition: 0.3s ease;
 }
 
-/* Focus */
 .input-group input:focus{
     border-color: var(--lavender);
     box-shadow: 0 0 20px rgba(119,141,169,0.4);
 }
 
-/* Movimiento flotante */
 .input-group input:focus + label,
 .input-group input:valid + label{
     top: -10px;

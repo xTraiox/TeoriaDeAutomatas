@@ -51,18 +51,26 @@
 
 <!-- Modal -->
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <h2>Reglas del Lenguaje</h2>
-    <ul style="text-align:left;">
-        <li>El primer símbolo debe ser un dígito.</li>
-        <li>Solo se permiten letras del alfabeto definido y dígitos de la matrícula.</li>
-        <li>Debe contener las iniciales consecutivas al menos una vez.</li>
-        <li>Debe terminar en un punto seguido de la matrícula completa.</li>
-        <li>Se permiten puntos intermedios pero no consecutivos.</li>
-    </ul>
-  </div>
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Reglas de Validación</h2>
+            <span class="close" onclick="cerrarModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <ul>
+                <li>Debe iniciar con un dígito válido.</li>
+                <li>No puede contener puntos consecutivos.</li>
+                <li id="reglaIniciales"></li>
+                <li id="reglaMatricula"></li>
+                <li id="reglaAlfabeto"></li>
+            </ul>
+        </div>
+
+    </div>
 </div>
+
 
 <!--<button class="btn-modal" onclick="abrirModal()"><i class="fa-solid fa-info"></i></button>-->
 <button class="btn-modal" onclick="abrirModal()">

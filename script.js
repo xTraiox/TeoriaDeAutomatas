@@ -1,4 +1,4 @@
-// CONFIGURA TUS DATOS
+// DATOS
 const nombre = "emilianomontalvo";
 const matricula = "2115459";
 const iniciales = "em";
@@ -6,6 +6,21 @@ const iniciales = "em";
 const letras = [...new Set(nombre.split(""))];
 const digitos = [...new Set(matricula.split(""))];
 const alfabeto = [...letras, ...digitos, "."];
+
+document.getElementById("reglaIniciales").innerHTML =
+    `Debe contener las iniciales: 
+     <strong style="color: var(--lavender)">"${iniciales}"</strong>`;
+
+document.getElementById("reglaMatricula").innerHTML =
+    `Debe terminar con: 
+     <strong style="color: var(--lavender)">".${matricula}"</strong>`;
+
+document.getElementById("reglaAlfabeto").innerHTML =
+    `Solo puede usar caracteres del alfabeto permitido: 
+     <strong style="color: var(--lavender)">
+     { ${alfabeto.join(", ")} }
+     </strong>`;
+
 
 document.getElementById("alfabeto").textContent =
 "{ " + alfabeto.join(", ") + " }";
@@ -53,16 +68,22 @@ function validar(){
 
     contador++;
 
-    document.getElementById("tabla").innerHTML += `
-        <tr>
-            <td>${contador}</td>
-            <td>${cadena}</td>
-            <td style="color:${esValida ? '#16a34a' : '#dc2626'}">
-                ${esValida ? "Válida" : "No válida"}
-            </td>
-            <td>${esValida ? "-" : error}</td>
-        </tr>
-    `;
+const tabla = document.getElementById("tabla");
+
+const claseFila = esValida ? "fila-valida" : "fila-invalida";
+
+tabla.insertAdjacentHTML("beforeend", `
+    <tr class="${claseFila}">
+        <td>${contador}</td>
+        <td>${cadena}</td>
+        <td style="color:${esValida ? '#2e7d32' : '#c62828'}">
+            ${esValida ? "Válida" : "No válida"}
+        </td>
+        <td>${esValida ? "-" : error}</td>
+    </tr>
+`);
+
+
 }
 
 function abrirModal() {
