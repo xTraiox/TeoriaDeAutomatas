@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
+<script src="https://kit.fontawesome.com/bdce7fdc6d.js" crossorigin="anonymous"></script>
 <title>Validador Lenguaje Regular</title>
 
 
@@ -20,7 +21,10 @@
         <div id="alfabeto"></div>
     </div>
 
-    <input type="text" id="cadena" placeholder="Escribe tu cadena aquí">
+<div class="input-group">
+    <input type="text" id="cadena" required>
+    <label for="cadena">Ingresa cadena</label>
+</div>
 
     <div class="botones">
         <button onclick="validar()">Validar</button>
@@ -60,7 +64,10 @@
   </div>
 </div>
 
-<button class="btn-modal" onclick="abrirModal()">Reglas</button>
+<!--<button class="btn-modal" onclick="abrirModal()"><i class="fa-solid fa-info"></i></button>-->
+<button class="btn-modal" onclick="abrirModal()">
+    <i class="fa-solid fa-circle-info"></i>
+</button>
 
 </body>
 </html>

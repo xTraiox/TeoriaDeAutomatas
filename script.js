@@ -66,12 +66,21 @@ function validar(){
 }
 
 function abrirModal() {
-    document.getElementById("modal").style.display = "block";
+    const modal = document.getElementById("modal");
+    const boton = document.querySelector(".btn-modal");
+
+    modal.style.display = "flex";
+    boton.classList.add("activo"); 
 }
 
 function cerrarModal() {
-    document.getElementById("modal").style.display = "none";
+    const modal = document.getElementById("modal");
+    const boton = document.querySelector(".btn-modal");
+
+    modal.style.display = "none";
+    boton.classList.remove("activo"); 
 }
+
 
 function limpiar(){
     document.getElementById("cadena").value="";
@@ -80,8 +89,11 @@ function limpiar(){
 
 // Cerrar si da click fuera del modal
 window.onclick = function(event) {
-    let modal = document.getElementById("modal");
+    const modal = document.getElementById("modal");
+    const boton = document.querySelector(".btn-modal");
+
     if (event.target == modal) {
         modal.style.display = "none";
+        boton.classList.remove("activo");
     }
 }
