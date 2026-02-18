@@ -1,7 +1,7 @@
 // DATOS
-const nombre = "emilianomontalvo";
+const nombre = "emilianomontalvorocha";
 const matricula = "2115459";
-const iniciales = "em";
+const iniciales = "emr";
 
 const letras = [...new Set(nombre.split(""))];
 const digitos = [...new Set(matricula.split(""))];
