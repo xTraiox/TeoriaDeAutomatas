@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
 <script src="https://kit.fontawesome.com/bdce7fdc6d.js" crossorigin="anonymous"></script>
 <title>Validador Lenguaje Regular</title>
 <link rel="icon" href="https://i.scdn.co/image/ab67616d00001e0242153bcb113f0203360e2068" type="image/png">
@@ -93,9 +92,11 @@ window.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", function(e){
         e.preventDefault();
+
+        const app = document.querySelector(".app");
         const url = this.href;
 
-        document.body.classList.add("salida");
+        app.classList.add("salida");
 
         setTimeout(() => {
             window.location.href = url;
@@ -103,5 +104,8 @@ document.querySelectorAll("a").forEach(link => {
     });
 });
 </script>
+
+<script src="global.js" defer></script>
+<script src="e1.js" defer></script>
 </body>
 </html>
