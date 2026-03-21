@@ -1,81 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
-<script src="https://kit.fontawesome.com/bdce7fdc6d.js" crossorigin="anonymous"></script>
-<title>Validador Lenguaje Regular</title>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Validadores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a1/e7/0f/a1e70f35-e5a7-a218-5770-018c1dc24388/7799192061571_cover.jpg/3000x3000bb.jpg" type="image/png">
 </head>
-
 <body>
 
 <div class="app">
-    <h1>Validador de Lenguaje Regular</h1>
 
-    <div class="alfabeto">
-        <strong>Alfabeto permitido:</strong>
-        <div id="alfabeto"></div>
+    <h1>Selecciona un Validador</h1>
+
+    <div class="botones-menu">
+
+        <a href="e1.html" class="btn-menu">
+            Lenguaje Regular
+        </a>
+
+        <a href="e2.html" class="btn-menu">
+            Lenguaje Independiente del Contexto
+        </a>
+
     </div>
 
-<div class="input-group">
-    <input type="text" id="cadena" required>
-    <label for="cadena">Ingresa cadena</label>
 </div>
+<script>
+document.body.classList.add("entrada");
 
-    <div class="botones">
-        <button onclick="validar()">Validar</button>
-        <button onclick="limpiar()">Limpiar</button>
+window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        document.body.classList.remove("entrada");
+    }, 50);
+});
 
-    </div>
+document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function(e){
+        e.preventDefault();
+        const url = this.href;
 
-    <div id="resultado" class="resultado"></div>
+        document.body.classList.add("salida");
 
-    <div class="historial">
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Cadena</th>
-                    <th>Resultado</th>
-                    <th>Regla</th>
-                </tr>
-            </thead>
-            <tbody id="tabla"></tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Modal -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-
-        <div class="modal-header">
-            <h2>Reglas de Validación</h2>
-            <span class="close" onclick="cerrarModal()">&times;</span>
-        </div>
-
-        <div class="modal-body">
-            <ul>
-                <li>Debe iniciar con un dígito válido.</li>
-                <li>No puede contener puntos consecutivos.</li>
-                <li id="reglaIniciales"></li>
-                <li id="reglaMatricula"></li>
-                <li id="reglaAlfabeto"></li>
-            </ul>
-        </div>
-
-    </div>
-</div>
-
-
-<!--<button class="btn-modal" onclick="abrirModal()"><i class="fa-solid fa-info"></i></button>-->
-<button class="btn-modal" onclick="abrirModal()">
-    <i class="fa-solid fa-circle-info"></i>
-</button>
-
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+    });
+});
+</script>
 </body>
 </html>

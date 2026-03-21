@@ -108,13 +108,48 @@ function limpiar(){
     document.getElementById("resultado").textContent="";
 }
 
-// Cerrar si da click fuera del modal
-window.onclick = function(event) {
+function abrirModal() {
     const modal = document.getElementById("modal");
     const boton = document.querySelector(".btn-modal");
 
-    if (event.target == modal) {
+    boton.classList.add("morph");
+
+    setTimeout(() => {
+        modal.style.display = "flex";
+        modal.classList.add("activo");
+        boton.classList.add("activo");
+    }, 200);
+}
+
+function cerrarModal() {
+    const modal = document.getElementById("modal");
+    const boton = document.querySelector(".btn-modal");
+
+    modal.classList.remove("activo");
+
+    setTimeout(() => {
         modal.style.display = "none";
+        boton.classList.remove("morph");
         boton.classList.remove("activo");
+    }, 300);
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+
+    if (event.target === modal) {
+        cerrarModal();
     }
+}
+
+function irMenu(){
+    window.location.href = "index.html";
+}
+
+function irMenu(){
+    document.body.classList.add("salida");
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 300);
 }

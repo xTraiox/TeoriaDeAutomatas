@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador CFG</title>
+    <script src="https://kit.fontawesome.com/bdce7fdc6d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://i.scdn.co/image/ab6761610000e5eb7f297d63ba329d9be9a726fc" type="image/png">
+</head>
+
+<body>
+
+<button class="btn-home" onclick="irMenu()">
+    <i class="fa-solid fa-house"></i>
+</button>
+<!--<button class="btn-modal" onclick="abrirModal()"><i class="fa-solid fa-info"></i></button>-->
+<button class="btn-modal" onclick="abrirModal()">
+    <i class="fa-solid fa-circle-info"></i>
+</button>
+
+<div class="app">
+
+    <h1>Validador de Gramática</h1>
+
+    <div class="alfabeto">
+        L = { i(w)^n i(w⁻¹)^(2n) j² }
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="cadena" required onkeypress="if(event.key==='Enter') validar()">        <label>Ingresa la cadena</label>
+    </div>
+
+    <div class="botones">
+        <button onclick="validar()">Validar</button>
+        <button onclick="limpiar()">Otra cadena</button>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <div class="historial">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cadena</th>
+                    <th>Resultado</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Reglas del Lenguaje</h2>
+            <span class="close" onclick="cerrarModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <ul>
+                <li id="regla1"></li>
+                <li id="regla2"></li>
+                <li id="regla3"></li>
+                <li id="regla4"></li>
+                <li id="regla5"></li>
+                <li id="regla6"></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="scripto.js" defer></script>
+
+<script>
+document.body.classList.add("entrada");
+
+window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        document.body.classList.remove("entrada");
+    }, 50);
+});
+
+document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function(e){
+        e.preventDefault();
+        const url = this.href;
+
+        document.body.classList.add("salida");
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+    });
+});
+</script>
+</body>
+</html>

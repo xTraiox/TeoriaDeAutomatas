@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+<script src="https://kit.fontawesome.com/bdce7fdc6d.js" crossorigin="anonymous"></script>
+<title>Validador Lenguaje Regular</title>
+<link rel="icon" href="https://i.scdn.co/image/ab67616d00001e0242153bcb113f0203360e2068" type="image/png">
+
+</head>
+
+<body>
+
+<div class="app">
+    <h1>Validador de Lenguaje Regular</h1>
+
+    <div class="alfabeto">
+        <strong>Alfabeto permitido:</strong>
+        <div id="alfabeto"></div>
+    </div>
+
+<div class="input-group">
+    <input type="text" id="cadena" required>
+    <label for="cadena">Ingresa cadena</label>
+</div>
+
+    <div class="botones">
+        <button onclick="validar()">Validar</button>
+        <button onclick="limpiar()">Limpiar</button>
+
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <div class="historial">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cadena</th>
+                    <th>Resultado</th>
+                    <th>Regla</th>
+                </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Reglas de Validación</h2>
+            <span class="close" onclick="cerrarModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+            <ul>
+                <li>Debe iniciar con un dígito válido.</li>
+                <li>No puede contener puntos consecutivos.</li>
+                <li id="reglaIniciales"></li>
+                <li id="reglaMatricula"></li>
+                <li id="reglaAlfabeto"></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<button class="btn-home" onclick="irMenu()">
+    <i class="fa-solid fa-house"></i>
+</button>
+
+<!--<button class="btn-modal" onclick="abrirModal()"><i class="fa-solid fa-info"></i></button>-->
+<button class="btn-modal" onclick="abrirModal()">
+    <i class="fa-solid fa-circle-info"></i>
+</button>
+
+
+<script>
+document.body.classList.add("entrada");
+
+window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        document.body.classList.remove("entrada");
+    }, 50);
+});
+
+document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function(e){
+        e.preventDefault();
+        const url = this.href;
+
+        document.body.classList.add("salida");
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+    });
+});
+</script>
+</body>
+</html>
