@@ -63,3 +63,30 @@ window.addEventListener("pageshow", () => {
         app.style.transform = "none";
     }
 });
+
+function toggleTema(){
+    const body = document.body;
+    const icono = document.getElementById("iconoTema");
+
+    body.classList.toggle("light");
+
+    const esClaro = body.classList.contains("light");
+
+    // Guardar preferencia
+    localStorage.setItem("tema", esClaro ? "claro" : "oscuro");
+
+    // Cambiar icono
+    icono.className = esClaro 
+        ? "fa-solid fa-sun" 
+        : "fa-solid fa-moon";
+}
+
+// Cargar tema al iniciar
+window.addEventListener("DOMContentLoaded", () => {
+    const temaGuardado = localStorage.getItem("tema");
+
+    if(temaGuardado === "claro"){
+        document.body.classList.add("light");
+        document.getElementById("iconoTema").className = "fa-solid fa-sun";
+    }
+});

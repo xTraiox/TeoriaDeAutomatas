@@ -1,23 +1,49 @@
+// VARIABLES BASE
 const i = "2115459";
 const w = "mr";
 const j = "emiliano";
 const wInv = w.split("").reverse().join("");
 
-// reglas
+// ================= REGLAS =================
+
+// Regla 1
 document.getElementById("regla1").innerHTML =
-`Inicia con "${i}"`;
+`Debe iniciar con la matrícula:
+<strong style="color: var(--lavender)">"${i}"</strong>`;
 
+// Regla 2
 document.getElementById("regla2").innerHTML =
-`Repeticiones de "${w}" (n ≥ 1)`;
+`Debe contener repeticiones de:
+<strong style="color: var(--lavender)">w = "${w}"</strong>
+<br>Donde n ≥ 1`;
 
+// Regla 3
 document.getElementById("regla3").innerHTML =
-`Después otra vez "${i}"`;
+`Después debe aparecer nuevamente:
+<strong style="color: var(--lavender)">"${i}"</strong>`;
 
+// Regla 4
 document.getElementById("regla4").innerHTML =
-`Luego (2n) veces "${wInv}"`;
+`Luego deben aparecer:
+<strong style="color: var(--lavender)">2n repeticiones de w⁻¹ = "${wInv}"</strong>`;
 
+// Regla 5
 document.getElementById("regla5").innerHTML =
-`Termina con "${j + j}"`;
+`Debe terminar con:
+<strong style="color: var(--lavender)">j² = "${j + j}"</strong>`;
+
+// Regla 6 (EXPLICACIÓN COMPLETA)
+document.getElementById("regla6").innerHTML =
+`
+Valores usados:
+<br>
+<strong style="color: var(--lavender)">
+i = ${i} <br>
+w = ${w} <br>
+w⁻¹ = ${wInv} <br>
+j = ${j}
+</strong>
+`;
 
 let contador = 0;
 
